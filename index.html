@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wyszukiwarka Kolorów – Pol-Skone</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f5f5f5; padding:40px; }
+.container { max-width:600px; margin:auto; background:white; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+input { width:100%; padding:12px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+.result { margin-top:20px; padding:20px; background:#fafafa; border-radius:10px; border:1px solid #ddd; }
+h2 { margin-top:0; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Wyszukiwarka Kolorów</h1>
+<p>Wpisz nazwę koloru, aby sprawdzić grupę kolorystyczną i dopłatę.</p>
+
+
+<input id="colorInput" type="text" placeholder="np. Dąb Bielony" oninput="searchColor()" />
+
+
+<div id="result" class="result" style="display:none"></div>
+</div>
+
+
+<script>
+// Przykładowa baza — możesz ją później rozbudować lub podłączyć zewnętrzny JSON
+const COLORS = [
+{ name: "Dąb Bielony", group: "Grupa I", price: "+0 zł" },
+{ name: "Orzech", group: "Grupa II", price: "+150 zł" },
+{ name: "Antracyt", group: "Grupa III", price: "+300 zł" },
+{ name: "Biały Soft", group: "Premium", price: "+450 zł" }
+];
+
+
+function searchColor() {
+const input = document.getElementById('colorInput').value.toLowerCase();
+const resultBox = document.getElementById('result');
+
+
+if (!input) { resultBox.style.display = 'none'; return; }
+
+
+const found = COLORS.find(c => c.name.toLowerCase().includes(input));
+
+
+if (found) {
+resultBox.style.display = 'block';
+resultBox.innerHTML = `<h2>${found.name}</h2>
+<p><strong>Grupa:</strong> ${found.group}</p>
+<p><strong>Dopłata:</strong> ${found.price}</p>`;
+} else {
+resultBox.style.display = 'block';
+resultBox.innerHTML = `<p>Nie znaleziono koloru.</p>`;
+}
+}
+</script>
+</body>
+</html>
